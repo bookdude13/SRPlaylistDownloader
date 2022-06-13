@@ -1,4 +1,5 @@
-﻿using SRModCore;
+﻿using MiKu.NET;
+using SRModCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -55,6 +56,41 @@ namespace SRPlaylistDownloader
             }
 
             return false;
+        }
+
+        public static List<FileInfo> TryGetFilesInDirectory(SRLogger logger, string directoryPath, string searchPattern)
+        {
+            try
+            {
+                var directoryInfo = new DirectoryInfo(directoryPath);
+                if (directoryInfo.Exists)
+                {
+                    return directoryInfo.GetFiles(searchPattern).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Failed to list files in directory {directoryPath} with search pattern {searchPattern}", ex);
+            }
+
+            return new List<FileInfo>();
+        }
+
+        /// <summary>
+        /// Returns all text from the given file info, or null on failure
+        /// </summary>
+        public static string TryReadAllFromFileInfo(SRLogger logger, FileInfo fileInfo)
+        {
+            try
+            {
+                return File.ReadAllText(fileInfo.FullName);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Failed to read file {fileInfo.FullName}", ex);
+            }
+
+            return null;
         }
     }
 }

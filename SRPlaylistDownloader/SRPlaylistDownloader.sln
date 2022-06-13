@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRPlaylistDownloader", "SRPlaylistDownloader\SRPlaylistDownloader.csproj", "{CCE8F53B-8076-4FED-A900-A54EEFDB5CDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SRPlaylistDownloaderTests", "SRPlaylistDownloaderTests\SRPlaylistDownloaderTests.csproj", "{251B4985-3579-4FEC-80BB-EAE612CAC40F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CCE8F53B-8076-4FED-A900-A54EEFDB5CDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCE8F53B-8076-4FED-A900-A54EEFDB5CDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCE8F53B-8076-4FED-A900-A54EEFDB5CDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251B4985-3579-4FEC-80BB-EAE612CAC40F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251B4985-3579-4FEC-80BB-EAE612CAC40F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251B4985-3579-4FEC-80BB-EAE612CAC40F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251B4985-3579-4FEC-80BB-EAE612CAC40F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

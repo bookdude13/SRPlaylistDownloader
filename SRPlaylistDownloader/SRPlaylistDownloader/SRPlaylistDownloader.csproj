@@ -71,8 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileUtils.cs" />
+    <Compile Include="Harmony\PatchSynthsFinder_FilesLoadThread.cs" />
     <Compile Include="MainMod.cs" />
+    <Compile Include="Models\PlaylistFile.cs" />
+    <Compile Include="Models\PlaylistItem.cs" />
+    <Compile Include="PlaylistDownloadManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PlaylistService.cs" />
     <Compile Include="Services\SynthriderzService.cs" />
   </ItemGroup>
   <ItemGroup />
