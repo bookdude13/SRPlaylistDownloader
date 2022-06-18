@@ -1,5 +1,6 @@
 ﻿using MelonLoader;
 using SRModCore;
+using SRPlaylistDownloader.Harmony;
 using SRPlaylistDownloader.Models;
 using SRPlaylistDownloader.Services;
 using Synth.SongSelection;
@@ -17,10 +18,11 @@ namespace SRPlaylistDownloader
     {
         public static MainMod Instance { get; private set; } = null;
 
+        public PlaylistDownloadManager playlistDownloadManager;
+        
         private SRLogger logger;
         private PlaylistService playlistService;
         private SynthriderzService synthriderzService;
-        private PlaylistDownloadManager playlistDownloadManager;
 
         public override void OnApplicationStart()
         {
@@ -47,15 +49,7 @@ namespace SRPlaylistDownloader
                 var downloadManagerGO = new GameObject("srplaylistmanager_main");
                 playlistDownloadManager = downloadManagerGO.AddComponent<PlaylistDownloadManager>();
                 playlistDownloadManager.Init(logger, playlistService, synthriderzService);
-
-                // Start downloading right away
-                playlistDownloadManager.DownloadMissingPlaylistsItems();
             }
-        }
-
-        public void OnSongsReload()
-        {
-
         }
     }
 }

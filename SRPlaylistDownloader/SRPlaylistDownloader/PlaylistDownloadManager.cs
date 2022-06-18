@@ -2,6 +2,7 @@
 using SRPlaylistDownloader.Models;
 using SRPlaylistDownloader.Services;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,16 +29,11 @@ namespace SRPlaylistDownloader
             initialized = true;
         }
 
-        public void DownloadMissingPlaylistsItems()
+        public HashSet<PlaylistItem> GetMissingPlaylistItems()
         {
-            if (!initialized)
-            {
-                logger.Error("Not initialized; not fetching missing playlists items");
-                return;
-            }
-
             logger.Msg("Checking playlists for missing items");
             var playlists = playlistService.GetAllPlaylists();
+
             logger.Msg($"{playlists.Count} playlists found.");
             var itemsToDownload = new HashSet<PlaylistItem>();
             foreach (var playlist in playlists)
@@ -47,13 +43,24 @@ namespace SRPlaylistDownloader
                 itemsToDownload.UnionWith(newItems);
             }
 
-            logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
-            StartCoroutine(synthriderzService.DownloadSongsByHash(itemsToDownload.Select(item => item.Hash).ToList()));
+            return itemsToDownload;
+        }
 
-            // After all songs are downloaded, refresh the song list
-            //logger.Msg("Refreshing song list");
-            //SongSelectionManager.GetInstance.RefreshSongList(false);
-            Util_SongFinder.s_instance.RefreshAction();
+        public IEnumerator DownloadPlaylistsItems(HashSet<PlaylistItem> itemsToDownload)
+        {
+            if (!initialized)
+            {
+                logger.Error("Not initialized; not fetching missing playlists items");
+            }
+            else
+            {
+                logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
+                yield return StartCoroutine(synthriderzService.DownloadSongsByHash(itemsToDownload.Select(item => item.Hash).ToList()));
+
+                // After all songs are downloaded, refresh the song list
+                //logger.Msg("Refreshing song list");
+                //SongSelectionManager.GetInstance.RefreshSongList(false);
+            }
         }
 
         private HashSet<string> GetExistingHashes()
