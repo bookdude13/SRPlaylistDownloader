@@ -39,31 +39,21 @@ namespace SRPlaylistDownloader
             logger.Msg("Checking playlists for missing items");
             var playlists = playlistService.GetAllPlaylists();
             logger.Msg($"{playlists.Count} playlists found.");
+            var itemsToDownload = new HashSet<PlaylistItem>();
             foreach (var playlist in playlists)
             {
-                logger.Msg($"\tPlaylist {playlist.PlaylistName}");
-                DownloadMissingPlaylistItems(playlist.Items);
+                var newItems = playlist.Items.Where(item => !existingHashes.Contains(item.Hash)).ToHashSet();
+                logger.Msg($"\tPlaylist {playlist.PlaylistName} has {playlist.Items.Count} items, {newItems.Count} to download");
+                itemsToDownload.UnionWith(newItems);
             }
-            logger.Msg("Done queueing downloads of missing items");
+
+            logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
+            StartCoroutine(synthriderzService.DownloadSongsByHash(itemsToDownload.Select(item => item.Hash).ToList()));
 
             // After all songs are downloaded, refresh the song list
             //logger.Msg("Refreshing song list");
             //SongSelectionManager.GetInstance.RefreshSongList(false);
-        }
-
-        private void DownloadMissingPlaylistItems(List<PlaylistItem> playlistItems)
-        {
-            var itemsToDownload = playlistItems.Where(item => !existingHashes.Contains(item.Hash)).ToList();
-            if (itemsToDownload.Count == 0)
-            {
-                logger.Msg("All playlist items already downloaded");
-            }
-            else
-            {
-                logger.Msg($"Downloading {itemsToDownload.Count} missing playlist items");
-                List<string> hashesToDownload = itemsToDownload.Select(item => item.Hash).ToList();
-                StartCoroutine(synthriderzService.DownloadSongsByHash(hashesToDownload));
-            }
+            Util_SongFinder.s_instance.RefreshAction();
         }
 
         private HashSet<string> GetExistingHashes()
