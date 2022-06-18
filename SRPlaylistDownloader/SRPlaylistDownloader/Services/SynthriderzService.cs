@@ -20,12 +20,15 @@ namespace SRPlaylistDownloader.Services
         private readonly string userAgent = $"SRPlaylistDownloader/{Assembly.GetExecutingAssembly().GetName().Version}";
 
         private SRLogger logger;
-        private string tempPath;
+        private string tempDir;
 
         public SynthriderzService(SRLogger logger)
         {
             this.logger = logger;
-            tempPath = $"{GetCustomSongsPath()}/temp_downloading.synth";
+            this.tempDir = $"{GetCustomSongsPath()}/temp";
+
+            // Make sure temp directory exists
+            FileUtils.EnsureDirectory(logger, tempDir);
         }
 
         private string GetCustomSongsPath()
@@ -33,9 +36,16 @@ namespace SRPlaylistDownloader.Services
             return Serializer.CHART_SAVE_PATH;
         }
 
+        private string GetTempPath(string songHash)
+        {
+            return $"{tempDir}/temp_{songHash}.synth";
+        }
+
         private IEnumerator DownloadSongByHash(string songHash)
         {
-            // If there was a leftover temp file from the last run, remove it
+            string tempPath = GetTempPath(songHash);
+
+            // If download was interrupted earlier, remove old file
             FileUtils.TryDeleteFile(logger, tempPath);
 
             string downloadUrl = $"{baseUrl}/beatmaps/hash/download/{songHash}";
@@ -63,7 +73,11 @@ namespace SRPlaylistDownloader.Services
 
                     // Move from temp to final location
                     var mapName = GetMapNameFromResponse(www);
-                    if (mapName != null)
+                    if (mapName == null)
+                    {
+                        FileUtils.TryDeleteFile(logger, tempPath);
+                    }
+                    else
                     {
                         string finalPath = $"{GetCustomSongsPath()}/{mapName}";
                         FileUtils.ForceMoveFile(logger, tempPath, finalPath);

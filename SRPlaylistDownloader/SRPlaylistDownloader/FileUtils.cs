@@ -92,5 +92,17 @@ namespace SRPlaylistDownloader
 
             return null;
         }
+
+        public static void EnsureDirectory(SRLogger logger, string directoryPath)
+        {
+            try
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Failed to create directory {directoryPath}", ex);
+            }
+        }
     }
 }

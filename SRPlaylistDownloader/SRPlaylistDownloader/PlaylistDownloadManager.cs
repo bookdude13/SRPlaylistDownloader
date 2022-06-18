@@ -43,8 +43,6 @@ namespace SRPlaylistDownloader
             {
                 logger.Msg($"\tPlaylist {playlist.PlaylistName}");
                 DownloadMissingPlaylistItems(playlist.Items);
-                // TODO test with one playlist, then check reload
-                break;
             }
             logger.Msg("Done queueing downloads of missing items");
 
