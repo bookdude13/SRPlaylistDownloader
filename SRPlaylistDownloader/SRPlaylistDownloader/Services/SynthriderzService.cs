@@ -113,11 +113,13 @@ namespace SRPlaylistDownloader.Services
         /// Overwrites existing files.
         /// </summary>
         /// <param name="songHashes">Song hashes to download</param>
-        public IEnumerator DownloadSongsByHash(List<string> songHashes)
+        /// <param name="OnDownload">Function called after each download completes</param>
+        public IEnumerator DownloadSongsByHash(List<string> songHashes, Action<string> OnDownload)
         {
             foreach (var songHash in songHashes)
             {
                 yield return DownloadSongByHash(songHash);
+                OnDownload(songHash);
             }
         }
     }

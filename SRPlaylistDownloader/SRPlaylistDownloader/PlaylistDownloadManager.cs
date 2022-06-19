@@ -31,6 +31,12 @@ namespace SRPlaylistDownloader
 
         public HashSet<PlaylistItem> GetMissingPlaylistItems()
         {
+            if (!initialized)
+            {
+                logger.Error("Not initialized; not fetching missing playlist items");
+                return new HashSet<PlaylistItem>();
+            }
+
             logger.Msg("Checking playlists for missing items");
             var playlists = playlistService.GetAllPlaylists();
 
@@ -43,19 +49,22 @@ namespace SRPlaylistDownloader
                 itemsToDownload.UnionWith(newItems);
             }
 
+            logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
             return itemsToDownload;
         }
 
-        public IEnumerator DownloadPlaylistsItems(HashSet<PlaylistItem> itemsToDownload)
+        public IEnumerator DownloadPlaylistsItems(HashSet<PlaylistItem> itemsToDownload, Action<string> OnDownload)
         {
             if (!initialized)
             {
-                logger.Error("Not initialized; not fetching missing playlists items");
+                logger.Error("Not initialized; not downloading playlists items");
             }
             else
             {
-                logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
-                yield return StartCoroutine(synthriderzService.DownloadSongsByHash(itemsToDownload.Select(item => item.Hash).ToList()));
+                yield return StartCoroutine(synthriderzService.DownloadSongsByHash(
+                    itemsToDownload.Select(item => item.Hash).ToList(),
+                    OnDownload
+                ));
 
                 // After all songs are downloaded, refresh the song list
                 //logger.Msg("Refreshing song list");
