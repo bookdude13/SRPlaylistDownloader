@@ -1,0 +1,157 @@
+{
+  "dataString": [
+    {
+      "hash": "0f8c8a5a2f6325ec1cf01e2a54b193d8fb8e3a2931fe21e56518330cf79b400f",
+      "name": "Natural",
+      "author": "Imagine Dragons",
+      "beatmapper": "",
+      "difficulty": 5,
+      "trackDuration": 192.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "fb630fc4d7e71b0c36929cf98171ab9076277cedeb8b9e2f4cbfc27efd12e713",
+      "name": "L",
+      "author": "Tycho",
+      "beatmapper": "",
+      "difficulty": 3,
+      "trackDuration": 200.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "f8d4ac264f5f36365952592829ea53b94c6498199d471deb1d7855c0537c8faf",
+      "name": "Empty Streets",
+      "author": "Scandroid",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 303.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "23e68b7e25427da2401d122bfedfd11052fa1d955715e042db0615959a8120bb",
+      "name": "Empires",
+      "author": "Electric Swing Circus",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 190.0,
+      "addedTime": 1609124351
+    },
+    {
+      "hash": "13e4ed63289fb2b81ec500af6ac40e0f814664748a7ac75c07d45c6eac322f52",
+      "name": "RIver Flows In You (Skullee remix)",
+      "author": "Yiruma",
+      "beatmapper": "",
+      "difficulty": 5,
+      "trackDuration": 238.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "ec3e8b07bb78516311307f05cd5e66939ed248ea6a126d65374c3f043423152e",
+      "name": "Let You Go",
+      "author": "Savoy",
+      "beatmapper": "",
+      "difficulty": 3,
+      "trackDuration": 210.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "283c529ffbde57739c44b4ec46cd1f128d3f154c2770879d14c7f014070b3f97",
+      "name": "Ghost",
+      "author": "Delta Heavy feat. Tanika",
+      "beatmapper": "",
+      "difficulty": 3,
+      "trackDuration": 255.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "fd5e5351b0fcb50ed533165772ba5a36ce9ada829ef3417deff85d53882d30ae",
+      "name": "Another Me",
+      "author": "Seven Lions, Excision, & Wooli",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 202.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "b9a93e6e3edbcde52fc640722cfc7d74934b56ff11aea695103daea07055d2f8",
+      "name": "Stronger",
+      "author": "TheFatRat, Slaydit, & Anjulie",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 206.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "8e54872cce101bffd2fb5bf5b8d2493a3add90d56585557c1e2a961c78e55015",
+      "name": "Nirmiti",
+      "author": "Xtrullor",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 305.0,
+      "addedTime": 1609123535
+    },
+    {
+      "hash": "ffed26f20cb39f2f015eae704bb09dfe8616f25590ac7585c16d503474c7006b",
+      "name": "Monody ",
+      "author": "TheFatRat (feat. Laura Brehm)",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 292.0,
+      "addedTime": 1609123536
+    },
+    {
+      "hash": "f1d752a613e0073ecda891c5d5225c3d9df283dc51bcf44412ef68149f07fd80",
+      "name": "Hideous",
+      "author": "Clockvice",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 308.0,
+      "addedTime": 1609123536
+    },
+    {
+      "hash": "97b207c228962a83a70936ea3a305c36d7cdaf7a57c0e6e18861218e9c35c0be",
+      "name": "Night Rider",
+      "author": "Abraxis & Crystal Skies",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 309.0,
+      "addedTime": 1609123536
+    },
+    {
+      "hash": "e1a0c760e1601752d5751ac7f73d43b542a58ecc68c5289c30b6cf85a038f0b9",
+      "name": "Eden",
+      "author": "Au5 & Danyka Nadeau",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 314.0,
+      "addedTime": 1609124351
+    },
+    {
+      "hash": "9f9116f4ea4abac2eef581fbad5d2fb1bf683010d23fdad1a559e2dd50ce2862",
+      "name": "Android Girl",
+      "author": "DECO*27 ft. Hatsune Miku",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 209.0,
+      "addedTime": 1609123536
+    },
+    {
+      "hash": "87d8798d3cfe46dc6dc2eb5c1350af816f3acf4d47b23e0d5440a70c7d2b507f",
+      "name": "Senpai Notice Me",
+      "author": "Camellia ft. Nanahira",
+      "beatmapper": "",
+      "difficulty": 4,
+      "trackDuration": 278.0,
+      "addedTime": 1609123536
+    }
+  ],
+  "SelectedIconIndex": 1,
+  "SelectedTexture": 1,
+  "namePlaylist": "Emi Force Training",
+  "description": "Maps I've used to train my force accuracy.  Listed in the order that I focused on for training, except for the last two.",
+  "gradientTop": "#F91C84",
+  "gradientDown": "#7430CF",
+  "colorTitle": "#FFFFFF",
+  "colorTexture": "#464956",
+  "creationDate": "1609121746"
+}
