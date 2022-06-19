@@ -16,7 +16,6 @@ namespace SRPlaylistDownloader
         private SRLogger logger;
         private PlaylistService playlistService;
         private SynthriderzService synthriderzService;
-        private HashSet<string> existingHashes = null;
         private bool initialized = false;
 
         public void Init(SRLogger logger, PlaylistService playlistService, SynthriderzService synthriderzService)
@@ -25,7 +24,6 @@ namespace SRPlaylistDownloader
             this.playlistService = playlistService;
             this.synthriderzService = synthriderzService;
             
-            existingHashes = GetExistingHashes();
             initialized = true;
         }
 
@@ -36,6 +34,8 @@ namespace SRPlaylistDownloader
                 logger.Error("Not initialized; not fetching missing playlist items");
                 return new HashSet<PlaylistItem>();
             }
+
+            var existingHashes = GetExistingHashes();
 
             logger.Msg("Checking playlists for missing items");
             var playlists = playlistService.GetAllPlaylists();
@@ -65,10 +65,6 @@ namespace SRPlaylistDownloader
                     itemsToDownload.Select(item => item.Hash).ToList(),
                     OnDownload
                 ));
-
-                // After all songs are downloaded, refresh the song list
-                //logger.Msg("Refreshing song list");
-                //SongSelectionManager.GetInstance.RefreshSongList(false);
             }
         }
 

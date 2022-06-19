@@ -23,14 +23,13 @@ namespace SRPlaylistDownloader.Harmony
             MainMod.Instance.LoggerInstance.Msg(message);
         }
         
-        public static bool Prefix(SynthsFinder __instance, bool isRefresh)
+        public static bool Prefix(bool isRefresh)
         {
             Msg($"In FilesLoadThread. isRefresh? {isRefresh} isDownloading? {isDownloading} isReloading? {isReloading}");
             if (!isDownloading && !isReloading && isRefresh)
             {
                 // Only get songs when the user prompts, to avoid unexpected delays or UI reloads.
                 // TODO Maybe have this as a setting?
-
                 isDownloading = true;
             }
 
@@ -84,7 +83,6 @@ namespace SRPlaylistDownloader.Harmony
             isReloading = true;
             isDownloading = false;
             SongSelectionManager.GetInstance?.RefreshSongList(false);
-            //Util_SongFinder.DoListRefresh();
         }
     }
 }
