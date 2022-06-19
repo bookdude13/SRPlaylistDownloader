@@ -1,4 +1,3 @@
-
 set BUILT_VERSION="1.0.0"
 set MOD_NAME="SRPlaylistDownloader"
 
