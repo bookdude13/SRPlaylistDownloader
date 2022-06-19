@@ -42,6 +42,9 @@ namespace SRPlaylistDownloader
                 // Setup services only once
                 synthriderzService = new SynthriderzService(logger);
                 playlistService = new PlaylistService(logger);
+
+                logger.Msg("Cleaning up temp download directory");
+                FileUtils.TryDeleteDirectoryRecursive(logger, FileUtils.GetCustomSongsTempPath());
             }
 
             if (scene.SceneType == SRScene.SRSceneType.MAIN_MENU)

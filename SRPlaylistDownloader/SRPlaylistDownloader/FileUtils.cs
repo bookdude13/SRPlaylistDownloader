@@ -11,6 +11,16 @@ namespace SRPlaylistDownloader
 {
     public static class FileUtils
     {
+        public static string GetCustomSongsPath()
+        {
+            return Serializer.CHART_SAVE_PATH;
+        }
+
+        public static string GetCustomSongsTempPath()
+        {
+            return $"{GetCustomSongsPath()}/temp";
+        }
+
         public static void TryDeleteFile(SRLogger logger, string path)
         {
             try
@@ -102,6 +112,18 @@ namespace SRPlaylistDownloader
             catch (Exception ex)
             {
                 logger.Error($"Failed to create directory {directoryPath}", ex);
+            }
+        }
+
+        public static void TryDeleteDirectoryRecursive(SRLogger logger, string directoryPath)
+        {
+            try
+            {
+                Directory.Delete(directoryPath, true);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Failed to delete directory at {directoryPath}", ex);
             }
         }
     }
