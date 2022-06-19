@@ -114,7 +114,7 @@ namespace SRPlaylistDownloader.Services
         /// </summary>
         /// <param name="songHashes">Song hashes to download</param>
         /// <param name="OnDownload">Function called after each download completes</param>
-        public IEnumerator DownloadSongsByHash(List<string> songHashes, Action<string> OnDownload)
+        public IEnumerator DownloadSongsByHash(HashSet<string> songHashes, Action<string> OnDownload)
         {
             foreach (var songHash in songHashes)
             {

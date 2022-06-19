@@ -25,28 +25,16 @@ namespace SRPlaylistDownloader.Harmony
         
         public static bool Prefix(bool isRefresh)
         {
-            Msg($"In FilesLoadThread. isRefresh? {isRefresh} isDownloading? {isDownloading} isReloading? {isReloading}");
+            //Msg($"In FilesLoadThread. isRefresh? {isRefresh} isDownloading? {isDownloading} isReloading? {isReloading}");
+            
+            // Only get songs when the user prompts (refresh).
+            // This lets the playlistDownloadManager be created in the main menu and have all the main menu load before messing with the UI
             if (!isDownloading && !isReloading && isRefresh)
             {
-                // Only get songs when the user prompts, to avoid unexpected delays or UI reloads.
-                // TODO Maybe have this as a setting?
                 isDownloading = true;
             }
 
             return true;
-        }
-
-        private static void OnDownload(string songHash)
-        {
-            SynthsFinder.CurrentLoadedSong += 1;
-        }
-
-        private static IEnumerator DownloadAndComplete(SynthsFinder instance, PlaylistDownloadManager manager, HashSet<PlaylistItem> missingItems)
-        {
-            yield return instance.StartCoroutine(manager.DownloadPlaylistsItems(missingItems, OnDownload));
-            Msg($"Done downloading. {SynthsFinder.CurrentLoadedSong} out of {SynthsFinder.CurrentTotalSongs} songs");
-
-            FinishDownload(instance);
         }
 
         public static void Postfix(SynthsFinder __instance, bool isRefresh)
@@ -65,17 +53,31 @@ namespace SRPlaylistDownloader.Harmony
                 Msg("Starting download in postfix");
                 var manager = MainMod.Instance.playlistDownloadManager;
                 var missingItems = manager.GetMissingPlaylistItems();
+                var missingHashes = missingItems.Select(item => item.Hash).ToHashSet();
+                Msg($"{missingHashes.Count} unique items found for download");
 
                 // Reset counts
                 SynthsFinder.CurrentLoadedSong = 0;
-                SynthsFinder.CurrentTotalSongs = missingItems.Count;
+                SynthsFinder.CurrentTotalSongs = missingHashes.Count;
 
-                __instance.StartCoroutine(DownloadAndComplete(__instance, manager, missingItems));
+                __instance.StartCoroutine(DownloadAndComplete(__instance, manager, missingHashes));
             }
+        }
+
+        private static void OnDownload(string songHash)
+        {
+            SynthsFinder.CurrentLoadedSong += 1;
+        }
+
+        private static IEnumerator DownloadAndComplete(SynthsFinder instance, PlaylistDownloadManager manager, HashSet<string> missingHashes)
+        {
+            yield return instance.StartCoroutine(manager.DownloadPlaylistsItems(missingHashes, OnDownload));
+            FinishDownload(instance);
         }
 
         public static void FinishDownload(SynthsFinder instance)
         {
+            // Mark all necessary flags to indicate "unfinished"
             SynthsFinder.IsLoadThreadFinished = true;
             new Traverse(instance).Property<bool>("CanStartCustomStagesLoad").Value = true;
 

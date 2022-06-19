@@ -27,12 +27,12 @@ namespace SRPlaylistDownloader
             initialized = true;
         }
 
-        public HashSet<PlaylistItem> GetMissingPlaylistItems()
+        public List<PlaylistItem> GetMissingPlaylistItems()
         {
             if (!initialized)
             {
                 logger.Error("Not initialized; not fetching missing playlist items");
-                return new HashSet<PlaylistItem>();
+                return new List<PlaylistItem>();
             }
 
             var existingHashes = GetExistingHashes();
@@ -41,19 +41,18 @@ namespace SRPlaylistDownloader
             var playlists = playlistService.GetAllPlaylists();
 
             logger.Msg($"{playlists.Count} playlists found.");
-            var itemsToDownload = new HashSet<PlaylistItem>();
+            var itemsToDownload = new List<PlaylistItem>();
             foreach (var playlist in playlists)
             {
-                var newItems = playlist.Items.Where(item => !existingHashes.Contains(item.Hash)).ToHashSet();
+                var newItems = playlist.Items.Where(item => !existingHashes.Contains(item.Hash)).ToList();
                 logger.Msg($"\tPlaylist {playlist.PlaylistName} has {playlist.Items.Count} items, {newItems.Count} to download");
-                itemsToDownload.UnionWith(newItems);
+                itemsToDownload.AddRange(newItems);
             }
 
-            logger.Msg($"Without duplicates, {itemsToDownload.Count} items found for download");
             return itemsToDownload;
         }
 
-        public IEnumerator DownloadPlaylistsItems(HashSet<PlaylistItem> itemsToDownload, Action<string> OnDownload)
+        public IEnumerator DownloadPlaylistsItems(HashSet<string> hashesToDownload, Action<string> OnDownload)
         {
             if (!initialized)
             {
@@ -61,10 +60,7 @@ namespace SRPlaylistDownloader
             }
             else
             {
-                yield return StartCoroutine(synthriderzService.DownloadSongsByHash(
-                    itemsToDownload.Select(item => item.Hash).ToList(),
-                    OnDownload
-                ));
+                yield return StartCoroutine(synthriderzService.DownloadSongsByHash(hashesToDownload, OnDownload));
             }
         }
 
